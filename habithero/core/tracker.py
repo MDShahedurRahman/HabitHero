@@ -35,3 +35,11 @@ class HabitTracker:
 
     def get_habit(self, name: str) -> Optional[Habit]:
         return self._habits.get(name)
+
+    def mark_done(self, name: str, day: Optional[str] = None) -> Habit:
+        h = self.get_habit(name)
+        if h is None:
+            raise KeyError("Habit not found.")
+        day = day or today_iso()
+        h.mark_done(day)
+        return h
