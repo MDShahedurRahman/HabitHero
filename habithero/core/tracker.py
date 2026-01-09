@@ -43,3 +43,20 @@ class HabitTracker:
         day = day or today_iso()
         h.mark_done(day)
         return h
+
+    def streak(self, name: str, as_of: Optional[str] = None) -> int:
+        h = self.get_habit(name)
+        if h is None:
+            raise KeyError("Habit not found.")
+
+        as_of_date = date.fromisoformat(as_of or today_iso())
+        count = 0
+        cur = as_of_date
+
+        while True:
+            if cur.isoformat() in h.done_dates:
+                count += 1
+                cur = cur - timedelta(days=1)
+            else:
+                break
+        return count
