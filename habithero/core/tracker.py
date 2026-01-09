@@ -29,3 +29,9 @@ class HabitTracker:
         h = Habit(name=name, created_on=created_on)
         self._habits[name] = h
         return h
+
+    def list_habits(self) -> List[Habit]:
+        return sorted(self._habits.values(), key=lambda h: h.name.lower())
+
+    def get_habit(self, name: str) -> Optional[Habit]:
+        return self._habits.get(name)
