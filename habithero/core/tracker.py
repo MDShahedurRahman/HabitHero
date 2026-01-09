@@ -60,3 +60,16 @@ class HabitTracker:
             else:
                 break
         return count
+
+    def summary(self, as_of: Optional[str] = None) -> List[HabitSummary]:
+        day = as_of or today_iso()
+        out: List[HabitSummary] = []
+        for h in self.list_habits():
+            out.append(
+                HabitSummary(
+                    name=h.name,
+                    streak=self.streak(h.name, as_of=day),
+                    done_today=h.is_done(day),
+                )
+            )
+        return out
