@@ -73,3 +73,17 @@ class HabitTracker:
                 )
             )
         return out
+
+    def weekly_counts(self, end_day: Optional[str] = None) -> List[Tuple[str, int]]:
+        """
+        Returns list of (YYYY-MM-DD, total_done_across_all_habits) for last 7 days.
+        """
+        end = date.fromisoformat(end_day or today_iso())
+        days = [(end - timedelta(days=i)) for i in range(6, -1, -1)]
+
+        result: List[Tuple[str, int]] = []
+        for d in days:
+            di = d.isoformat()
+            count = sum(1 for h in self._habits.values() if di in h.done_dates)
+            result.append((di, count))
+        return result
