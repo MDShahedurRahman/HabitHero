@@ -87,3 +87,28 @@ class HabitTracker:
             count = sum(1 for h in self._habits.values() if di in h.done_dates)
             result.append((di, count))
         return result
+
+    # ---- persistence helpers ----
+    def to_dict(self) -> Dict:
+        return {
+            "habits": [
+                {
+                    "name": h.name,
+                    "created_on": h.created_on,
+                    "done_dates": sorted(list(h.done_dates)),
+                }
+                for h in self.list_habits()
+            ]
+        }
+
+    @classmethod
+    def from_dict(cls, data: Dict) -> "HabitTracker":
+        t = cls()
+        for item in data.get("habits", []):
+            h = Habit(
+                name=item["name"],
+                created_on=item["created_on"],
+                done_dates=set(item.get("done_dates", [])),
+            )
+            t._habits[h.name] = h
+        return t
