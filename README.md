@@ -1,16 +1,10 @@
-# NumberNinja
+# HabitHero
 
-NumberNinja is a small Python command-line guessing game with difficulty levels, scoring, and unit tests.  
-The goal is to guess a secret number within a limited number of attempts while receiving feedback to guide your guesses.
-
-This project is intentionally lightweight and focuses on clean logic, testability, and proper GitHub workflow.
-
----
+HabitHero is a small Python command-line habit tracker.  
+It uses multiple packages and classes, saves data locally (JSON), and includes unit tests.
 
 ## Requirements
 - Python 3.9+
-
----
 
 ## Setup
 ```bash
